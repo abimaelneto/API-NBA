@@ -8,6 +8,7 @@ export default {
     };
   },
   methods: {
+    /*chamada da api*/
     async getfullTeam(url) {
       this.loading = true;
       const res = await fetch(url);
@@ -23,12 +24,15 @@ export default {
       };
       this.loading = false;
     },
+    /*função de retorno caso não ache foto no diretório com id*/
     replaceByDefault(e) {
       e.target.src = nophoto;
     },
+    /*função procurar imagem com o mesmo nome do id*/
     getImagePath(id) {
       return `/teams/${id}.png`;
     },
+    /*função para procurar imagem no diretório*/
     fileExists(filename) {
       // Cria um novo objeto de requisição
       var http = new XMLHttpRequest();

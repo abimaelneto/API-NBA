@@ -12,6 +12,7 @@ export default {
     };
   },
   methods: {
+    /*chamada da api*/
     getPeople(url) {
       this.loading = true;
       fetch(url)
@@ -23,6 +24,7 @@ export default {
           this.loading = false;
         });
     },
+    /*função para o botão voltar página*/
     handleNext() {
       if (this.searchWord == "") {
         this.getPeople(
@@ -34,6 +36,7 @@ export default {
         );
       }
     },
+    /*função para o botão retornar página*/
     handlePrevious() {
       if (this.searchWord == "") {
         this.getPeople(
@@ -54,23 +57,20 @@ export default {
       this.searchWord = "";
       this.getPeople(`https://www.balldontlie.io/api/v1/players`);
     },
+    /*função de retorno caso não ache foto no diretório com id*/
     replaceByDefault(e) {
       e.target.src = nophoto;
     },
+    /*função procurar imagem com o mesmo nome do id*/
     getImagePath(id) {
       return `/players/${id}.png`;
     },
+    /*função para procurar imagem no diretório*/
     fileExists(filename) {
-      // Cria um novo objeto de requisição
       var http = new XMLHttpRequest();
-
-      // Define o método e a URL da requisição
       http.open("HEAD", filename, false);
-
-      // Envia a requisição
       http.send();
 
-      // Verifica o status da resposta
       if (http.status === 404) {
         filename = nophoto;
         http = new XMLHttpRequest();

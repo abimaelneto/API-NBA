@@ -11,6 +11,7 @@ export default {
     };
   },
   methods: {
+    /*chamada da api*/
     async getPerson2(url) {
       this.loading = true;
       const res = await fetch(url);
@@ -27,23 +28,20 @@ export default {
       }),
         (this.loading = false);
     },
+    /*função retorno de foto quando não achar imagem no diretório*/
     replaceByDefault(e) {
       e.target.src = nophoto;
     },
+    /*função para procurar imagem com o mesmo id no diretório*/
     getImagePath(id) {
       return `/players/${id}.png`;
     },
+
+    /*função para verificar se a imagem existe ou não*/
     fileExists(filename) {
-      // Cria um novo objeto de requisição
       var http = new XMLHttpRequest();
-
-      // Define o método e a URL da requisição
       http.open("HEAD", filename, false);
-
-      // Envia a requisição
       http.send();
-
-      // Verifica o status da resposta
       return http.status !== 404;
     },
   },

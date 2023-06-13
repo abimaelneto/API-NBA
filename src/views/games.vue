@@ -11,6 +11,7 @@ export default {
     };
   },
   methods: {
+    /*chamada da api*/
     getGames(url) {
       this.loading = true;
       fetch(url)
@@ -23,35 +24,27 @@ export default {
           this.loading = false;
         });
     },
-    formatarData(date) {
-      const dataObjeto = new Date();
-
-      const dia = dataObjeto.getDate().toString().padStart(2, "0");
-      const mes = (dataObjeto.getMonth() + 1).toString().padStart(2, "0");
-      const ano = dataObjeto.getFullYear();
-      const hora = dataObjeto.getHours().toString().padStart(2, "0");
-      const minuto = dataObjeto.getMinutes().toString().padStart(2, "0");
-
-      const dataFormatada = `${dia}/${mes}/${ano} - ${hora}:${minuto}`;
-
-      return dataFormatada;
-    },
+    /*função para o botão retornar página*/
     handlePrevious() {
       this.getGames(
         `https://www.balldontlie.io/api/v1/games?page=${this.previous}`
       );
     },
+    /*função para o botão avançar página*/
     handleNext() {
       this.getGames(
         `https://www.balldontlie.io/api/v1/games?page=${this.next}`
       );
     },
+    /*função de retorno caso não ache foto no diretório com id*/
     replaceByDefault(e) {
       e.target.src = nophoto;
     },
+    /*função procurar imagem com o mesmo nome do id*/
     getImagePath(id) {
       return `/teams/${id}.png`;
     },
+    /*função para procurar imagem no diretório*/
     fileExists(filename) {
       var http = new XMLHttpRequest();
 
