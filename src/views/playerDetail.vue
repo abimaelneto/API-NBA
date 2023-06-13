@@ -1,6 +1,8 @@
 <script>
 import nophoto from "../assets/players/nophoto.png";
+import imageMixin from "@/mixins/image";
 export default {
+  mixins: [imageMixin],
   data() {
     return {
       person: {},
@@ -28,22 +30,6 @@ export default {
       }),
         (this.loading = false);
     },
-    /*função retorno de foto quando não achar imagem no diretório*/
-    replaceByDefault(e) {
-      e.target.src = nophoto;
-    },
-    /*função para procurar imagem com o mesmo id no diretório*/
-    getImagePath(id) {
-      return `/players/${id}.png`;
-    },
-
-    /*função para verificar se a imagem existe ou não*/
-    fileExists(filename) {
-      var http = new XMLHttpRequest();
-      http.open("HEAD", filename, false);
-      http.send();
-      return http.status !== 404;
-    },
   },
   mounted() {
     const id = this.$route.params.id;
@@ -70,11 +56,10 @@ export default {
       <div class="divProfile">
         <div class="divCardFotoProfile">
           <img
-            v-if="fileExists(getImagePath(id))"
-            :src="getImagePath(id)"
+            :src="getImagePath('players', id)"
             alt=""
+            @error="replaceByDefault"
           />
-          <img v-else src="../assets/players/nophoto.png" alt="" width="200" />
         </div>
         <div class="divDadosPlayer">
           <h3 v-show="loading" class="loadingPreto">loading .....</h3>

@@ -1,6 +1,8 @@
 <script>
 import nophoto from "../assets/teams/noimage.png";
+import imageMixin from "@/mixins/image";
 export default {
+  mixins: [imageMixin],
   data() {
     return {
       games: [],
@@ -51,32 +53,6 @@ export default {
         `https://www.balldontlie.io/api/v1/games?page=${this.next}`
       );
     },
-    /*função para caso não tenha foto trocar a imagem por nophoto*/
-    replaceByDefault(e) {
-      e.target.src = nophoto;
-    },
-    /*função para pegar imagem no diretório*/
-    getImagePath(id) {
-      return `/teams/${id}.png`;
-    },
-    /*função para verificar se a imagem existe*/
-    fileExists(filename) {
-      var http = new XMLHttpRequest();
-
-      http.open("HEAD", filename, false);
-
-      http.send();
-
-      if (http.status === 404) {
-        filename = nophoto;
-        http = new XMLHttpRequest();
-        http.open("HEAD", filename, false);
-        http.send();
-
-        return http.status !== 404;
-      }
-      return http.status !== 404;
-    },
   },
   computed: {
     /*função para chamar a função de data */
@@ -117,10 +93,9 @@ export default {
             <div class="house">
               <div class="view">
                 <!-- Logo home -->
+                <Image path="teams" :id="game.home_team.id" />
                 <img
-                  v-if="fileExists(getImagePath(game.home_team.id))"
-                  :src="getImagePath(game.home_team.id)"
-                  alt=""
+                  :src="getImagePath('teams', game.home_team.id)"
                   width="65"
                   @error="replaceByDefault"
                 />
@@ -137,9 +112,7 @@ export default {
               <div class="view">
                 <!-- Logo visi -->
                 <img
-                  v-if="fileExists(getImagePath(game.visitor_team.id))"
-                  :src="getImagePath(game.visitor_team.id)"
-                  alt=""
+                  :src="getImagePath('teams', game.visitor_team.id)"
                   width="65"
                   @error="replaceByDefault"
                 />
