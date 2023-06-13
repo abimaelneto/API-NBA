@@ -1,29 +1,14 @@
-<script setup>
-import { RouterLink, RouterView } from "vue-router";
+<script>
+import HomeCard from "@/components/HomeCard.vue";
+export default {
+  components: { HomeCard },
+};
 </script>
 <template>
   <div class="divGeral">
-    <div class="divGeralItem">
-      <div class="divTimes">
-        <RouterLink to="/Teams"
-          ><button class="btnAcesso">TEAMS</button></RouterLink
-        >
-      </div>
-    </div>
-    <div class="divGeralItem">
-      <div class="divJogadores">
-        <RouterLink to="/Players"
-          ><button class="btnAcesso">PLAYERS</button></RouterLink
-        >
-      </div>
-    </div>
-    <div class="divGeralItem">
-      <div class="divJogos">
-        <RouterLink to="/Games"
-          ><button class="btnAcesso">LAST MATCHUPS</button></RouterLink
-        >
-      </div>
-    </div>
+    <HomeCard route="/Teams" title="TEAMS" customClass="divTimes" />
+    <HomeCard route="/Players" title="PLAYERS" customClass="divJogadores" />
+    <HomeCard route="/Games" title="LAST MATCHUPS" customClass="divJogos" />
   </div>
 </template>
 
